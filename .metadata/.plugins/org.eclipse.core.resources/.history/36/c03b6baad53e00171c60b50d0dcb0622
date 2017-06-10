@@ -1,0 +1,143 @@
+/* Write a Java program to create a progress bar GUI which displays
+   the copy status of writing contents of one file to another file.
+   Terminate the progress bar on click of STOP button and display 
+   the contents of the file.
+ */
+
+import java.util.*;
+import java.io.*;
+import javax.swing.*;
+import java.awt.event.*;
+public class MainClass 
+{
+  JLabel Lsource;
+  JLabel Ldest;
+  JTextField Jsource;
+  JTextField Jdest;
+  JTextArea Jarea;
+  JButton Bstart;
+  JButton Bstop;
+  JProgressBar jpBar;
+  JPanel p1;
+  JFrame f1;
+  JScrollPane scroll;
+  String source,dest;
+  
+  public void prepareGUI()
+  {
+	  Lsource=new JLabel("SOURCE FILE");
+	  Jsource=new JTextField(10);
+	  Ldest=new JLabel("DESTINATION FILE");
+	  Jdest=new JTextField(10);
+	  Jarea=new JTextArea("",10,30);
+	  Bstart=new JButton("COPY");
+	  Bstop=new JButton("STOP");
+	  scroll=new JScrollPane(Jarea);
+	  JPanel p1=new JPanel();
+	  JFrame f1;
+	  p1.add(Lsource);
+	  p1.add(Jsource);
+	  p1.add(Ldest);
+	  p1.add(Jdest);
+	  p1.add(Bstart);
+	  p1.add(Jarea);
+	  p1.add(scroll);
+	  f1=new JFrame("LOGIN");
+	  f1.add(p1);
+	  f1.setSize(800,800);
+	  f1.setVisible(true);
+  }
+  
+  public void setAction()
+  {
+	  f1.addWindowListener(new WindowAdapter()
+	  {
+		  public void windowClosing(WindowEvent winEvt)
+		  {
+			  System.exit(0);
+		  }
+	  });
+  
+      Bstart.addActionListener(new ActionListener()
+      {
+	    public void actionPerformed(ActionEvent e)
+	    {
+		   source=Jsource.getText();
+		   dest=Jdest.getText();
+		   copyFiles(source,dest);
+		   showProgressBar();
+	    }
+      });
+  
+      Bstop.addActionListener(new ActionListener()
+      {
+	     public void actionPerformed(ActionEvent e)
+	     {
+		    hideProgressBar();
+		    displayContents(dest);
+	     }
+      });
+  }
+  
+  public void showProgressBar()
+  {
+	  jpBar=new JProgressBar(0,100);
+	  jpBar.setString("COPYING");
+	  jpBar.setVisible(true);
+	  jpBar.setStringPainted(true);
+	  jpBar.setIndeterminate(true);
+	  p1.add(jpBar);
+	  p1.add(Bstop);
+	  f1.setVisible(true);
+  }
+  
+  public void hideProgressBar()
+  {
+	  jpBar.setVisible(false);
+	  Bstop.setVisible(false);
+  }
+  
+  public MainClass()
+  {
+	  prepareGUI();
+	  setAction();
+  }
+  
+  @SuppressWarnings("resource")
+public void copyFiles(String source,String dest)
+  {
+	  try{
+	  InputStream in=new FileInputStream(new File(source));
+	  OutputStream out=new FileOutputStream(new File(dest));
+	  byte []buf=new byte[1024];
+	  int len;
+	  while((len=in.read(buf))>0)
+	  {
+		  out.write(buf,0,len);
+	  }
+	  in.close();
+	  }catch(Exception e)
+	  {
+		  e.printStackTrace();
+	  }
+  }
+  
+  public void displayContents(String dest)
+  {
+	  try
+	  {
+		  @SuppressWarnings("resource")
+		String content=new Scanner(new File(dest)).useDelimiter("//Z").next();
+		  Jarea.setText(content);
+	  }catch(Exception e)
+	  {
+		  e.printStackTrace();
+	  }
+  }
+  
+  public static void main(String [] args)
+  {
+	  @SuppressWarnings("unused")
+	  MainClass mainframe=new MainClass();
+  }
+}

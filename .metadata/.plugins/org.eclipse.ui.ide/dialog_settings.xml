@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+		<item value="C:\Genghis Khan\ChinaTown\Java and J2EE\Lab\12"/>
+		<item value="C:\myWorking\test\8"/>
+		<item value="C:\Genghis Khan\ChinaTown\Java and J2EE\Lab\LabProgs\11"/>
+		<item value="C:\myWorking\JAVAP2\ITJSP"/>
+		<item value="C:\myWorking\JAVAP2\ITServlet"/>
+		<item value="C:\myWorking\test\7"/>
+		<item value="C:\myWorking\JAVAP1"/>
+		<item value="C:\myWorking\JAVAP1\progressBar"/>
+	</list>
+	<section name="NewWizardAction">
+		<item value="org.eclipse.jdt.ui.wizards.JavaProjectWizard" key="NewWizardSelectionPage.STORE_SELECTED_ID"/>
+		<list key="NewWizardSelectionPage.STORE_EXPANDED_CATEGORIES_ID">
+		</list>
+	</section>
+</section>
